@@ -15,9 +15,25 @@ const isValidNumber = (number) => {
     const regex = /^[0-9]+$/;
     return regex.test(number);
 };
+let continueornot = 'yes'
+client.on('message', async (message) => {
+    // Vérifier si le message est un DM et provient d'un utilisateur différent du bot
+    if (message.channel.type === 'DM' && !message.author.bot) {
+      const content = message.content.toLowerCase(); // Convertir le contenu en minuscules pour éviter les problèmes de casse
+  
+      if (content === 'botcontinue') {
+        continueornot = 'yes';
+        message.reply('Ok, ça continue !');
+      } else if (content === 'botstop') {
+        continueornot = 'no';
+        message.reply('Ok, je m\'arrête');
+      }
+    }
+  });
 
 client.on('messageReactionAdd', async (reaction, user) => {
     if (reaction.message.channel.id === targetChannelID && !reaction.message.author.bot && reaction.message.author.id !== `${monid}`) {
+    if(continueornot === 'yes'){
         const firstWord = await reaction.message.content.split(" ")[0];
 
         if (isValidNumber(firstWord)) {
@@ -32,6 +48,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
                 }
         }
     }
+}
 });
 
 client.login(token);
