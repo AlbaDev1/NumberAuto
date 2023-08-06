@@ -37,7 +37,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
         const firstWord = await reaction.message.content.split(" ")[0];
 
         if (isValidNumber(firstWord)) {
-                if (reaction.emoji.name === '✅' || reaction.emoji.name === '💯' || reaction.emoji.name === '☑️') {
+                if (reaction.emoji.name === '✅' || reaction.emoji.name === '💯' || reaction.emoji.name === '☑️'  || reaction.emoji.name === '🌿') {
                     if (user.id === `${iddubot}`) {
                             setTimeout(async () => {
                             const lastNumber = parseInt(firstWord);
